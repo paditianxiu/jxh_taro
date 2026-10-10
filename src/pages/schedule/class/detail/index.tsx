@@ -10,8 +10,8 @@ import {
   type ScheduleData
 } from '@/services/jxhApi'
 import {
-  getFuzhouCourseTimeRange,
-  getFuzhouDisplayTimeNodes,
+  getScheduleCourseTimeRange,
+  getScheduleDisplayTimeNodes,
   getScheduleSectionEnd
 } from '@/utils/scheduleTime'
 import { getJxhShareMessage } from '@/utils/share'
@@ -372,8 +372,8 @@ function getSectionDuration(course: ScheduleCourse) {
   return Math.max(getSectionEnd(course) - course.sections[0] + 1, 1)
 }
 
-function getCourseTimeText(course: ScheduleCourse) {
-  return getFuzhouCourseTimeRange(course.sections).text
+function getCourseTimeText(course: ScheduleCourse, campus: string) {
+  return getScheduleCourseTimeRange(course.sections, campus, course.location).text
 }
 
 function getWeekRowCount(courses: RenderCourse[]) {
@@ -533,7 +533,17 @@ export default function ClassScheduleDetailPage() {
     const currentWeekCourseCount = weekCourses.filter(course => course.isCurrentWeek).length
     const rowCount = getWeekRowCount(weekCourses)
     const rowHeight = getRowHeight(rowCount)
-    const timeNodes = getFuzhouDisplayTimeNodes(rowCount)
+    const timeNodes = getScheduleDisplayTimeNodes(
+      rowCount,
+      schedule?.campus || '',
+      [
+        ...weekCourses.filter(course => course.isCurrentWeek),
+        ...weekCourses.filter(course => !course.isCurrentWeek)
+      ]
+    )
+
+    
+
     const gridHeight = `${rowCount * rowHeight}rpx`
     const gridLineOffset = Math.max(rowHeight - 1, 1)
     const gridBackground = `linear-gradient(to bottom, transparent ${gridLineOffset}rpx, #eef2f7 ${gridLineOffset}rpx) 0 0 / 100% ${rowHeight}rpx`
@@ -761,7 +771,7 @@ export default function ClassScheduleDetailPage() {
             <View className='class-detail-info-row'>
               <Text className='class-detail-info-label'>上课时间</Text>
               <Text className='class-detail-info-value'>
-                {WEEK_LABELS[selectedCourse.day - 1] || '-'} 第{selectedCourse.sections[0]}-{getSectionEnd(selectedCourse)}节 · {getCourseTimeText(selectedCourse)}
+                {WEEK_LABELS[selectedCourse.day - 1] || '-'} 第{selectedCourse.sections[0]}-{getSectionEnd(selectedCourse)}节 · {getCourseTimeText(selectedCourse, schedule?.campus || '')}
               </Text>
             </View>
 

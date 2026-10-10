@@ -49,6 +49,7 @@ export type ScheduleCourse = {
 }
 
 export type ScheduleData = {
+  campus: string
   current_week: number
   term_start_date: string
   courses: Array<ScheduleCourse | ScheduleCourse[]>
@@ -159,6 +160,7 @@ const MOCK_USER: UserInfo = {
 const MOCK_ACTIVE_WEEKS = Array.from({ length: 22 }, (_, index) => index + 1)
 
 const MOCK_SCHEDULE: ScheduleData = {
+  campus: '抚州校区',
   current_week: 20,
   term_start_date: '2026-02-23',
   courses: [

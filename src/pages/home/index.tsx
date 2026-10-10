@@ -17,7 +17,7 @@ import {
   type ScheduleData,
   type UserInfo
 } from '@/services/jxhApi'
-import { getFuzhouCourseTimeRange } from '@/utils/scheduleTime'
+import { getScheduleCourseTimeRange } from '@/utils/scheduleTime'
 import { getJxhShareMessage } from '@/utils/share'
 
 
@@ -290,7 +290,11 @@ function createScheduleGroups(schedule: ScheduleData | null, selectedDate: Date)
     {
       date: `${formatScheduleDateTitle(selectedDate)}${weekTitle}`,
       items: selectedCourses.map((course, index) => {
-        const courseTime = getFuzhouCourseTimeRange(course.sections)
+        const courseTime = getScheduleCourseTimeRange(
+          course.sections,
+          schedule.campus,
+          course.location
+        )
 
         return {
           timeStart: courseTime.timeStart,

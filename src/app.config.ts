@@ -9,7 +9,8 @@ export default defineAppConfig({
     'pages/exams/index/index',
     'pages/campus-card/index/index',
     'pages/map/index/index',
-    'pages/calendar/index/index'
+    'pages/calendar/index/index',
+    'pages/group/index/index'
   ],
 
   window: {

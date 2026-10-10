@@ -121,6 +121,12 @@ export type SchoolNewsCarouselItem = {
   surface: string
 }
 
+export type SchoolGroupItem = {
+  id: number
+  title: string
+  file_name: string
+}
+
 export type SchoolNewsData = {
   timelineNewsEntries: SchoolNewsTimelineEntry[]
   carouselItems: SchoolNewsCarouselItem[]
@@ -507,6 +513,9 @@ export const jxhApi = {
   },
   getSchoolCalendar() {
     return request<string[]>('/api/school-calendar', undefined, 'GET')
+  },
+  getSchoolGroup() {
+    return request<SchoolGroupItem[]>('/api/school-group', undefined, 'GET')
   },
   async getSchoolNews() {
     const data = await request<SchoolNewsApiData>('/api/school-news', undefined, 'GET')

@@ -9,6 +9,7 @@ const serviceCards = [
   { icon: 'credit-card', color: '#0891B2', title: '校园卡', subtitle: '账号与认证信息', url: '/pages/campus-card/index/index' },
   { icon: 'map', color: '#0D9488', title: '江航地图', subtitle: '校园导航与建筑位置', url: '/pages/map/index/index' },
   { icon: 'date-range', color: '#7C3AED', title: '江航校历', subtitle: '学期安排与节假日信息', url: '/pages/calendar/index/index' },
+  { icon: 'watch', color: '#c710ec', title: '交流社群', subtitle: '交流学习心得与体会', url: '/pages/group/index/index' },
 ]
 
 type CardItem = {
@@ -32,7 +33,7 @@ export default function CampusPanel() {
     const result: CardItem[] = []
 
     for (let i = 0; i < serviceCards.length; i++) {
-      if (i % 3 === 0) {
+      if ([0, 3, 6].includes(i)) {
         result.push({
           type: 'banner',
           key: `banner-${i}`,
